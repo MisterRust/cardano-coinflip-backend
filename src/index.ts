@@ -21,6 +21,9 @@ mongoose
 const app = express();
 app.use(cors())
 app.use(json())
+app.use('/', (req: Request, res: Response) => {
+    return res.send("users")
+})
 app.use("/apis", apiRouter)
 app.use("/users", userRouter)
 app.use("/flips", flipRouter)
