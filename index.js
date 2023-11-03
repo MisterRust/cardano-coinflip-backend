@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const whitelist = ['http://localhost:3333', 'https://nebula-coinflip.netlify.app/']; // Add any other allowed origins
+const whitelist = ['http://localhost:3333', 'https://nebula-coinflip.vercel.app']; // Add any other allowed origins
 
 const corsOptions = {
   origin: function (origin, callback) {
