@@ -3,7 +3,7 @@ const cors = require('cors');
 const { message } = require('./function');
 const app = express();
 
-const whitelist = ['http://45.61.161.48:3333', 'https://nebula-coinflip.vercel.app']; // Add any other allowed origins
+const whitelist = ['http://localhost:3333', 'https://nebula-coinflip.vercel.app']; // Add any other allowed origins
 
 const corsOptions = {
   origin: function (origin, callback) {
