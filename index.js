@@ -1,8 +1,11 @@
-const express = require('express');
-const cors = require('cors');
-const { message } = require('./function');
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import userRoute from './routes/userRoute.js';  // Note the .js extension
+import { message } from './function.js';
 const app = express();
 
+// const userRoute = require('./routes/userRoute')
 const whitelist = ['http://localhost:3333', 'https://nebula-coinflip.vercel.app']; // Add any other allowed origins
 
 const corsOptions = {
@@ -15,8 +18,12 @@ const corsOptions = {
   },
 };
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(cors(corsOptions));
-
+app.use('/users', userRoute)
 app.get('/', (req, res, next) => {
   const apiKey = req.get('X-Api-Key');
   if (!apiKey) {

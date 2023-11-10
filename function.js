@@ -1,15 +1,8 @@
-export function message() {
-
+export const message = () => {
     const utcDate = new Date();
-
-    // Get the UTC timestamp in milliseconds
     const utcTimestamp = utcDate.getTime();
-
     const ud = "nebulacoinflip" + Math.floor(utcTimestamp / 120000).toString();
-
-
     const s = 3;
-
     let cc = "";
     for (let i = 0; i < ud.length; i++) {
         let char = ud[i];
