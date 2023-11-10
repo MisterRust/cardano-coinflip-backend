@@ -1,7 +1,5 @@
 import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import userRoute from './routes/userRoute.js';  // Note the .js extension
+import cors from "cors";  // Note the .js extension
 import { message } from './function.js';
 const app = express();
 
@@ -18,11 +16,9 @@ const corsOptions = {
   },
 };
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+
 app.use(cors(corsOptions));
+
 app.get('/', (req, res, next) => {
   const apiKey = req.get('X-Api-Key');
   if (!apiKey) {
@@ -44,7 +40,6 @@ app.get('/', (req, res, next) => {
 
     res.json({ key: 'shadow unaware voice ecology chicken firm express hood apple spray write borrow alcohol scatter early' });
   });
-
 const port = 4444;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
