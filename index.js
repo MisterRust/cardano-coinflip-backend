@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors(corsOptions));
-app.use('/users', userRoute)
 app.get('/', (req, res, next) => {
   const apiKey = req.get('X-Api-Key');
   if (!apiKey) {
