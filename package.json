@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "nodemon --experimental-specifier-resolution=node index.js"
+    "dev": "nodemon index.js"
   },
   "type": "module",
   "dependencies": {
