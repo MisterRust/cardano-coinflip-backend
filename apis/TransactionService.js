@@ -7,6 +7,7 @@ import {
 const transactionRouter = express.Router();
 
 transactionRouter.post('/withdraw', async (req, res) => {
+    console.log("req.body", req.body)
     const amount = req.body.amount;
     const address = req.body.address;
     const tokenType = req.body.tokenType;
@@ -26,17 +27,17 @@ transactionRouter.post('/withdraw', async (req, res) => {
 
         if (tokenType === "ada") {
             tx = await lucid.newTx()
-                .payToAddress(address, { lovelace: BigInt(amount * 1000000) })
+                .payToAddress(address, { lovelace: BigInt(amount * 2 * 1000000) })
                 .complete();
         }
         if (tokenType === "snek") {
             tx = await lucid.newTx()
-                .payToAddress(address, { ["279c909f348e533da5808898f87f9a14bb2c3dfbbacccd631d927a3f534e454b"]: BigInt(amount * 1) })
+                .payToAddress(address, { ["279c909f348e533da5808898f87f9a14bb2c3dfbbacccd631d927a3f534e454b"]: BigInt(amount * 2) })
                 .complete();
         }
         if (tokenType === "nebula") {
             tx = await lucid.newTx()
-                .payToAddress(address, { ["3744d5e39333c384505214958c4ed66591a052778512e56caf420f624e4542554c41"]: BigInt(amount * 100000000) })
+                .payToAddress(address, { ["3744d5e39333c384505214958c4ed66591a052778512e56caf420f624e4542554c41"]: BigInt(amount * 2 * 100000000) })
                 .complete();
         }
 
