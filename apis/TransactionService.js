@@ -3,6 +3,7 @@ import {
     Lucid, Blockfrost, toUnit, Data, Constr, fromHex,
     toHex, sha256
 } from "lucid-cardano";
+import Flip from '../models/Flip.js';
 
 const transactionRouter = express.Router();// ok
 transactionRouter.post('/withdraw', async (req, res) => {
@@ -45,6 +46,14 @@ transactionRouter.post('/withdraw', async (req, res) => {
         console.log("txhash", txHash);
 
         if(txHash){
+            const newTransaction = await Flip.create({
+                addr: req.body.address,
+                amount: req.body.amount,
+                token: req.body.tokenType,
+                result: true,
+                created_at: new Date().getTime()
+            });
+
             res.json({
                 "success": true
             });

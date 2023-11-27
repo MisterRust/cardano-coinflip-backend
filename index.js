@@ -39,7 +39,6 @@ app.use(express.json());
 // { extended: false }
 app.use(cors(corsOptions));
 
-
 app.get('/', (req, res, next) => {
   const apiKey = req.get('X-Api-Key');
   if (!apiKey) {
