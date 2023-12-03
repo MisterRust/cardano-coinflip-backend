@@ -15,8 +15,9 @@ flipRouter.get('/', async (req, res) => {
 
 // Get transactions with a specific addr
 flipRouter.get('/:addr', async (req, res) => {
+    console.log("req.query.addr", req.params.addr)
     try {
-      const transactions = await Transaction.find({ addr: req.query.addr });
+      const transactions = await Flip.find({ addr: req.params.addr });
       res.json(transactions);
     } catch (error) {
       console.error(error);
