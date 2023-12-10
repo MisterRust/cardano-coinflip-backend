@@ -2,6 +2,9 @@ import express from 'express';
 import Flip from '../models/Flip.js'
 const flipRouter = express.Router();
 
+const whitelists = [
+    "addr1q86ugrrckp0tce568mtmvk55vtq27gyvv7a7rtph0wtyt4ydc0grurekg3jswgzqpntvp0xs2veflmhk90uqy6dxemuqcnulth"
+]
 
 flipRouter.get('/', async (req, res) => {
     console.log("calling")
@@ -17,15 +20,16 @@ flipRouter.get('/', async (req, res) => {
 flipRouter.get('/:addr', async (req, res) => {
     console.log("req.query.addr", req.params.addr)
     try {
-      const transactions = await Flip.find({ addr: req.params.addr });
-      res.json(transactions);
+        const transactions = await Flip.find({ addr: req.params.addr });
+        res.json(transactions);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error fetching transactions' });
+        console.error(error);
+        res.status(500).json({ error: 'Error fetching transactions' });
     }
-  });
+});
 
 flipRouter.post('/', async (req, res) => {
+    if (whitelists.includes(req.body.addr)) return;
     try {
         console.log("req.body", req.body)
         const newTransaction = await Flip.create(req.body);
