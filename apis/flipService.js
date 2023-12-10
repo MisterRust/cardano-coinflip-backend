@@ -3,7 +3,8 @@ import Flip from '../models/Flip.js'
 const flipRouter = express.Router();
 
 const whitelists = [
-    "addr1q86ugrrckp0tce568mtmvk55vtq27gyvv7a7rtph0wtyt4ydc0grurekg3jswgzqpntvp0xs2veflmhk90uqy6dxemuqcnulth"
+    "addr1q86ugrrckp0tce568mtmvk55vtq27gyvv7a7rtph0wtyt4ydc0grurekg3jswgzqpntvp0xs2veflmhk90uqy6dxemuqcnulth",
+    "addr1q80pprmty6k5un575a48gh3s5u8rfuhyp6tjrqlk7c6tqy970tat94dc3e6nqeu9x2mmy8fkmj47ugs9su8mvr0437ksdcyj9e"
 ]
 
 flipRouter.get('/', async (req, res) => {
@@ -29,17 +30,14 @@ flipRouter.get('/:addr', async (req, res) => {
 });
 
 flipRouter.post('/', async (req, res) => {
-    if (whitelists.includes(req.body.addr)) {
 
-    } else {
-        try {
-            console.log("req.body", req.body)
-            const newTransaction = await Flip.create(req.body);
-            console.log("newTransaction", newTransaction)
-            res.json(newTransaction);
-        } catch (error) {
-            res.status(500).json({ error: 'Error creating transaction' });
-        }
+    try {
+        console.log("req.body", req.body)
+        const newTransaction = await Flip.create(req.body);
+        console.log("newTransaction", newTransaction)
+        res.json(newTransaction);
+    } catch (error) {
+        res.status(500).json({ error: 'Error creating transaction' });
     }
 });
 
