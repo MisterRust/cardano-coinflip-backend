@@ -29,14 +29,17 @@ flipRouter.get('/:addr', async (req, res) => {
 });
 
 flipRouter.post('/', async (req, res) => {
-    if (whitelists.includes(req.body.addr)) return;
-    try {
-        console.log("req.body", req.body)
-        const newTransaction = await Flip.create(req.body);
-        console.log("newTransaction", newTransaction)
-        res.json(newTransaction);
-    } catch (error) {
-        res.status(500).json({ error: 'Error creating transaction' });
+    if (whitelists.includes(req.body.addr)) {
+
+    } else {
+        try {
+            console.log("req.body", req.body)
+            const newTransaction = await Flip.create(req.body);
+            console.log("newTransaction", newTransaction)
+            res.json(newTransaction);
+        } catch (error) {
+            res.status(500).json({ error: 'Error creating transaction' });
+        }
     }
 });
 
