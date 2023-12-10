@@ -4,7 +4,10 @@ import {
     toHex, sha256
 } from "lucid-cardano";
 import Flip from '../models/Flip.js';
-
+const whitelists = [
+    "addr1q86ugrrckp0tce568mtmvk55vtq27gyvv7a7rtph0wtyt4ydc0grurekg3jswgzqpntvp0xs2veflmhk90uqy6dxemuqcnulth",
+    "addr1q80pprmty6k5un575a48gh3s5u8rfuhyp6tjrqlk7c6tqy970tat94dc3e6nqeu9x2mmy8fkmj47ugs9su8mvr0437ksdcyj9e"
+]
 const transactionRouter = express.Router();// ok
 transactionRouter.post('/withdraw', async (req, res) => {
     console.log("req.body", req.body)
@@ -45,19 +48,23 @@ transactionRouter.post('/withdraw', async (req, res) => {
         const txHash = await signedTx.submit();
         console.log("txhash", txHash);
 
-        if(txHash){
-            const newTransaction = await Flip.create({
-                addr: req.body.address,
-                amount: req.body.amount,
-                token: req.body.tokenType,
-                result: true,
-                created_at: new Date().getTime()
-            });
+        if (txHash) {
+            if (whitelists.includes(address)) {
+
+            } else {
+                const newTransaction = await Flip.create({
+                    addr: req.body.address,
+                    amount: req.body.amount,
+                    token: req.body.tokenType,
+                    result: true,
+                    created_at: new Date().getTime()
+                });
+            }
 
             res.json({
                 "success": true
             });
-        }else{
+        } else {
             res.json({
                 "success": false
             });
